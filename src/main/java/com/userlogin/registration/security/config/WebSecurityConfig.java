@@ -15,10 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    // burayı custom oluşturmak için WebSecurityConfigurerAdapter'ı extends ettik
 
-    private final AppUserService appUserService; // Injection..
-    private final BCryptPasswordEncoder bCryptPasswordEncoder; // Injection..
+    // Injections..
+    private final AppUserService appUserService; 
+    private final BCryptPasswordEncoder bCryptPasswordEncoder; 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -26,9 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/v*/registration/**")
                 .permitAll()
-                //antMatchers'a endpoint'ine girdiğimiz adrese gelen kullanıcı her işlemi gerçekleştirebilir buna izin verdik, yani kullanıcı login authenticate olmak zorunda değildir
                 .anyRequest().authenticated()
-                // bu satır diğer tüm istekler için kullanıcıdan login olmasını ister,login olmadan hiçbir isteği karşılamaz
                 .and()
                 .formLogin();
     }
